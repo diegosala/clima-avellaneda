@@ -1,0 +1,1 @@
+{"hora":"28\/11 @ 13:14:52","temperatura":25.25,"humedad":50,"velocidad":5,"rafaga":7,"direccion":16,"lluvia":0,"bateria":12.07}
