@@ -18,7 +18,7 @@ class CreateRecordsTable extends Migration {
 			$table->decimal('min_temperature',5,2);
                         $table->dateTime('min_temperaure_date');
 			$table->decimal('avg_temperature',5,2);
-			$table->decimal('avg_humidity',3,2)->unsigned();
+			$table->decimal('avg_humidity',3,1)->unsigned();
 			$table->integer('max_windgust')->unsigned();
 			$table->dateTime('max_windgust_date');
 			$table->decimal('avg_windspeed',3,1);
@@ -34,7 +34,7 @@ class CreateRecordsTable extends Migration {
                         $table->decimal('min_temperature',5,2);
                         $table->dateTime('min_temperaure_date');
                         $table->decimal('avg_temperature',5,2);
-                        $table->decimal('avg_humidity',3,2)->unsigned();
+                        $table->decimal('avg_humidity',3,1)->unsigned();
                         $table->integer('max_windgust')->unsigned();
                         $table->dateTime('max_windgust_date');
                         $table->decimal('avg_windspeed',3,1);
@@ -52,7 +52,7 @@ class CreateRecordsTable extends Migration {
                         $table->decimal('min_temperature',5,2);
                         $table->time('min_temperaure_time');
                         $table->decimal('avg_temperature',5,2);
-                        $table->decimal('avg_humidity',3,2)->unsigned();
+                        $table->decimal('avg_humidity',3,1)->unsigned();
                         $table->integer('max_windgust')->unsigned();
                         $table->time('max_windgust_time');
                         $table->decimal('avg_windspeed',3,1);
