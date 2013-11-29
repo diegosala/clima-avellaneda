@@ -37,7 +37,9 @@ class ArchiveCommand extends Command {
 	 */
 	public function fire()
 	{
+		Log::info("Archivando...", array("timestamp"=>$this->argument("last_period")));
 		DB::statement("CALL sp_archive('{$this->argument("last_period")}')");
+		Log::info("Archivado");
 	}
 
 	/**
