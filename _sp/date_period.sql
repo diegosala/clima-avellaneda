@@ -1,0 +1,11 @@
+DROP FUNCTION IF EXISTS date_period;
+CREATE FUNCTION `date_period`(`dt` DATETIME)
+	RETURNS datetime
+	LANGUAGE SQL
+	NOT DETERMINISTIC
+	NO SQL
+	SQL SECURITY DEFINER
+	COMMENT ''
+BEGIN
+RETURN TIMESTAMP(CONCAT(date(dt), ' ', hour(dt),':',floor(minute(dt)/10)*10,':00'));
+END
