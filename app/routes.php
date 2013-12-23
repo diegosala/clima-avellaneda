@@ -18,10 +18,10 @@ Route::pattern("date", '[0-9]+');
 Route::get('/', 'LiveController@ShowLive');
 
 Route::get('/archivo/diario', 'DailyController@Main');
-Route::get('/archivo/diario/{year}/{month}/{date}', 'DailyController@Daily');
+Route::get('/archivo/{year}/{month}/{date}', 'DailyController@Daily');
 
 Route::get('/archivo/mensual', 'MonthlyController@Main');
-Route::get('/archivo/mensual/{year}/{month}', 'MonthlyController@Monthly');
+Route::get('/archivo/{year}/{month}', 'MonthlyController@Monthly');
 
 Route::get('/archivo/anual', 'YearlyController@Main');
-Route::get('/archivo/anual/{year}', 'YearlyController@Yearly');
+Route::get('/archivo/{year}', 'YearlyController@Yearly');
