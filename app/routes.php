@@ -21,7 +21,7 @@ Route::get('/archivo/diario', 'DailyController@Main');
 Route::get('/archivo/diario/{year}/{month}/{date}', 'DailyController@Daily');
 
 Route::get('/archivo/mensual', 'MonthlyController@Main');
-Route::get('/archivo/mensual/{year}/{month}', 'MonthlyController@Month');
+Route::get('/archivo/mensual/{year}/{month}', 'MonthlyController@Monthly');
 
 Route::get('/archivo/anual', 'YearlyController@Main');
 Route::get('/archivo/anual/{year}', 'YearlyController@Yearly');
