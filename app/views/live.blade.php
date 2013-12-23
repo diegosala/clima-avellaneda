@@ -30,11 +30,11 @@
                                 <td class="dato"><span id="velocidad"></span> km/h</td>
                             </tr>
                             <tr>
-                                <td>Rága</td>
+                                <td>Ráfaga</td>
                                 <td class="dato"><span id="rafaga"></span> km/h</td>
                             </tr>
                             <tr>
-                                <td>Direcciótd>
+                                <td>Dirección</td>
                                 <td class="dato"><span id="direccion"></span></td>
                             </tr>
                             <tr>
@@ -42,7 +42,7 @@
                                 <td class="dato"><span id="lluvia"></span> mm / 10 min</td>
                             </tr>
                             <tr>
-                                <td>Baterí/td>
+                                <td>Batería</td>
                                 <td class="dato"><span id="bateria"></span> V</td>
                             </tr>
                         </tbody>
