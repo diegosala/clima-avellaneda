@@ -5,11 +5,14 @@ class DailyController extends BaseController {
 
 	public function main()
 	{
-		$this->layout->content = View::make('archive.daily.main')->with('day', 0);
+		$this->layout->content = View::make('archive.daily.main')->with('day', 0)->with('daily_section', true);
+		$this->layout->with('daily_section', true);
 	}
 
 	public function daily($year, $month, $day)
 	{
-		$this->layout->content = View::make('archive.daily.main')->with('day', 1);	
+		$day = Day::where('date', '=', "{$year}-{$month}-{$day}")->get()->first();
+		$this->layout->content = View::make('archive.daily.main')->with('day', $day)->with('daily_section', true);
+		$this->layout->with('daily_section', true);
 	}
 }
