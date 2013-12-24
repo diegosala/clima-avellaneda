@@ -25,9 +25,9 @@
 		<li class="dropdown<?php if (Request::is('archivo/*')) { ?> active<?php } ?>">
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Archivo<b class="caret"></b></a>
 			<ul class="dropdown-menu">
-				<li <?php if (Request::is('archivo/diario')) { ?>class="active"<?php } ?>><a href="<?php echo action("DailyController@Main") ?>">Diario</a></li>
-				<li <?php if (Request::is('archivo/mensual')) { ?>class="active"<?php } ?>><a href="<?php echo action("MonthlyController@Main") ?>">Mensual</a></li>
-				<li <?php if (Request::is('archivo/anual')) { ?>class="active"<?php } ?>><a href="<?php echo action("YearlyController@Main") ?>">Anual</a></li>
+				<li @if (isset($daily_section)) class="active" @endif ><a href="<?php echo action("DailyController@Main") ?>">Diario</a></li>
+				<li @if (isset($monthly_section)) class="active" @endif ><a href="<?php echo action("MonthlyController@Main") ?>">Mensual</a></li>
+				<li @if (isset($yearly_section)) class="active" @endif ><a href="<?php echo action("YearlyController@Main") ?>">Anual</a></li>
 			</ul>
 		</li>
                 <li <?php if (Request::is('/graficos/*')) { ?>class="active"<?php } ?>><a href="graficos/">Gr&aacute;ficos</a></li>
