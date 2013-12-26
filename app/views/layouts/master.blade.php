@@ -30,13 +30,13 @@
 				<li @if (isset($yearly_section)) class="active" @endif ><a href="<?php echo action("YearlyController@Main") ?>">Anual</a></li>
 			</ul>
 		</li>
-                <li <?php if (Request::is('/graficos/*')) { ?>class="active"<?php } ?>><a href="graficos/">Gr&aacute;ficos</a></li>
+                <li <?php if (Request::is('/graficos/*')) { ?>class="active"<?php } ?>><a href="/graficos/">Gr&aacute;ficos</a></li>
                 <li><a href="#">Contacto</a></li>
             </ul>
         </div>
     </nav>            
     @show
-    <div>
+    <div class="container">
             @yield('content')
     </div>
     <script src="/min/?g=js"></script>

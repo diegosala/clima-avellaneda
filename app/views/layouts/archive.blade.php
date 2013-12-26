@@ -6,3 +6,8 @@
 		</div>
 	</div>
 @stop
+@section('content-js')
+@if (isset($datepicker_format))
+<script type="text/javascript" src="/assets/js/bootstrap-datepicker.es.js"></script>
+@endif
+@stop

@@ -2,10 +2,21 @@
 
 class YearlyController extends BaseController {
 	protected $layout = 'layouts.archive';
+	private $datepicker_format = "yyyy";
 
 	public function main()
 	{
-		$this->layout->content = View::make('archive.yearly.main')->with('year', 0)->with('yearly_section', true);
+		$min_date = Year::min('id');
+                $max_date = Year::max('id');
+
+                $view = View::make('archive.yearly.main');
+                $view->with('year', 0);
+                $view->with('yearly_section', true);
+                $view->with('min_date', $min_date);
+                $view->with('max_date', $max_date);
+                $view->with('datepicker_format', $this->datepicker_format);		
+
+		$this->layout->content = $view;
 		$this->layout->with('yearly_section', true);
 	}
 
