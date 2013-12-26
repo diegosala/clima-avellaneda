@@ -1,5 +1,17 @@
 @section('archive')
-<h1>Archivo anual</h1>
+<div class="row">
+        <div class="col-xs-8"><h1>Archivo anual</h1></div>
+        @if ((isset($year)) && (@$year->id > 0))
+        <div class="col-xs-4">
+                <div id="dp" class="input-group date" style="padding-top: 25px">
+                        <input type="text" class="form-control">
+                        <div class="input-group-btn">
+                                <button class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </div>
+                </div>
+        </div>
+        @endif
+</div>
 @if ((isset($year)) && (@$year->id > 0))
 @include('archive.yearly.detail')
 @else
@@ -19,8 +31,9 @@ $('#dp').datepicker({
     startView: 2,
     minViewMode: 2,
 }).on('changeDate', function(e){
-     location.href = e.format();
+     location.href = '/archivo/' + e.format();
 });
+$("#dp").datepicker('update','{{ $current_date }})');
 </script>
 @endif
 @stop

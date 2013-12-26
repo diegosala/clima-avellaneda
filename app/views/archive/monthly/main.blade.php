@@ -1,6 +1,18 @@
 @extends('layouts.archive')
 @section('archive')
-<h1>Archivo mensual</h1>
+<div class="row">
+        <div class="col-xs-8"><h1>Archivo mensual</h1></div>
+        @if ((isset($month)) && (@$month->id > 0))
+        <div class="col-xs-4">
+                <div id="dp" class="input-group date" style="padding-top: 25px">
+                        <input type="text" class="form-control">
+                        <div class="input-group-btn">
+                                <button class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </div>
+                </div>
+        </div>
+        @endif
+</div>
 @if ((isset($month)) && (@$month->id > 0))
 @include('archive.monthly.detail')
 @else
@@ -20,8 +32,9 @@ $('#dp').datepicker({
     startView: 1,
     minViewMode: 1,
 }).on('changeDate', function(e){
-     location.href = e.format();
+     location.href = '/archivo/' + e.format();
 });
+$("#dp").datepicker('update','{{ $current_date }})');
 </script>
 @endif
 @stop
