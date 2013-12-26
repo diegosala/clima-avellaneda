@@ -1,6 +1,18 @@
 @extends('layouts.archive')
 @section('archive')
-<h1>Archivo diario</h1>
+<div class="row">
+	<div class="col-xs-8"><h1>Archivo diario</h1></div>
+	@if ((isset($day)) && (@$day->id > 0))
+	<div class="col-xs-4">
+		<div id="dp" class="input-group date" style="padding-top: 25px">
+			<input type="text" class="form-control">
+			<div class="input-group-btn">
+				<button class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+			</div>
+		</div>
+	</div>
+	@endif
+</div>
 @if ((isset($day)) && (@$day->id > 0))
 @include('archive.daily.detail')
 @else
@@ -11,15 +23,16 @@
 @if (isset($datepicker_format))
 @parent
 <script type="text/javascript">
-$('#dp').datepicker({
+$("#dp").datepicker({
     format: '{{ $datepicker_format }}',
     startDate: '{{ $min_date }}',
     endDate: '{{ $max_date }}',
     language: "es",
     todayHighlight: true,
 }).on('changeDate', function(e){
-     location.href = e.format();
+     location.href = '/archivo/' + e.format();
 });
+$("#dp").datepicker('update','{{ $current_date }})');
 </script>
 @endif
 @stop
