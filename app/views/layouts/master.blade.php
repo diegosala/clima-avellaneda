@@ -36,7 +36,7 @@
         </div>
     </nav>            
     @show
-    <div>
+    <div class="container">
             @yield('content')
     </div>
     <script src="/min/?g=js"></script>
