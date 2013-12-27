@@ -7,9 +7,8 @@
 @section('content')
     <div class="row">
         <div class="col-lg-6 col-md-8 col-sm-12 col-lg-offset-3 col-md-offset-2">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">Datos actuales</div>
-                <div class="panel-body">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -26,32 +25,27 @@
                                 <td class="dato"><span id="humedad"></span>%</td>
                             </tr>
                             <tr>
-                                <td>Velocidad</td>
+                                <td>Velocidad de viento</td>
                                 <td class="dato"><span id="velocidad"></span> km/h</td>
                             </tr>
                             <tr>
-                                <td>Ráfaga</td>
+                                <td>R&aacute;faga de viento</td>
                                 <td class="dato"><span id="rafaga"></span> km/h</td>
                             </tr>
                             <tr>
-                                <td>Dirección</td>
+                                <td>Direcci&oacute;n de viento</td>
                                 <td class="dato"><span id="direccion"></span></td>
                             </tr>
                             <tr>
-                                <td>Lluvia</td>
+                                <td>Precipitaci&oacute;n</td>
                                 <td class="dato"><span id="lluvia"></span> mm / 10 min</td>
-                            </tr>
-                            <tr>
-                                <td>Batería</td>
-                                <td class="dato"><span id="bateria"></span> V</td>
-                            </tr>
+                            </tr>                           
                         </tbody>
                     </table>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-info" style="width: 0%; transition: none" id="pb">                            
+                    <div class="progress" style="width: 90%; margin-top: 20px; margin-right: auto; margin-left: auto">
+                        <div class="progress-bar progress-bar-success" style="width: 0%; transition: none" id="pb">                            
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
@@ -94,11 +88,10 @@
                     $("#rafaga").text(data.rafaga);
                     $("#direccion").text(getDireccion(data.direccion));
                     $("#lluvia").text(data.lluvia);
-                    $("#bateria").text(data.bateria);
                                         
                     $("#tabla_datos .dato").animate({textShadow: "#C0B6B6 5px 5px 5px;"});
                     
-                    $("#horario").css("color", "#31b0d5");
+                    $("#horario").css("color", "#6cb484");
                     $("#horario").animate({color: "#000000"});
                     
                     $("#pb").css("width", "0%");                    
