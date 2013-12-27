@@ -10,7 +10,7 @@ class LiveController extends BaseController {
 
 	public function LastData()
 	{	
-		$span = 30; // minutes
+		$span = 5; // minutes
 		return Response::json(DB::table('live')->select('timestamp', 'temperature', 'humidity', 'wind_speed', 'wind_gust', 'wind_direction', 'rain')->orderBy('id', 'desc')->take($span*12)->get());
 	}
 

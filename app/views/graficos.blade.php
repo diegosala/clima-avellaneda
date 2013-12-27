@@ -41,7 +41,8 @@
 				title: 'Temperatura'
 			}, 
 			axisY2:{
-				title: 'Humedad'
+				title: 'Humedad',
+				maximum: 100
 			},
 			data: [{ 
 				// temperature
@@ -85,7 +86,9 @@
 				title: "Velocidad"
                         },
 			axisY2:{
-                                title: "Direccion"
+                                title: "Direccion",
+				maximum: 360,
+				interval: 22.5
                         },
                         data: [{
                                 // wind speed
@@ -144,9 +147,9 @@
 				dataType: 'json',
 				type: 'GET',
 				success: function(data) {
-					var i = 0;
+					var i;
 					var d;
-					for(; i < data.length; i++) {
+					for(i = data.length - 1; i > 0; i--) {
 						d = new Date(data[i].timestamp);
 						temperature.push({
 							x: d,
@@ -166,15 +169,15 @@
 						});
 						wind_direction.push({
                                                         x: d,
-                                                        y: data[i].wind_direction*22.5
+                                                        y: (data[i].wind_direction*1 - 1)*22.5
 						});
 					}
 					
-					th_chart.options.data[0].legendText = " Temperatura: " + data[i-1].temperature;
-					th_chart.options.data[1].legendText = " Humedad: " + data[i-1].humidity;
-					v_chart.options.data[0].legendText = " Promedio: " + data[i-1].wind_speed;
-					v_chart.options.data[1].legendText = " Rafaga: " + data[i-1].wind_gust;
-					v_chart.options.data[2].legendText = " Direccion: " + getDireccion(data[i-1].wind_direction*1)
+					th_chart.options.data[0].legendText = " Temperatura: " + data[0].temperature;
+					th_chart.options.data[1].legendText = " Humedad: " + data[0].humidity;
+					v_chart.options.data[0].legendText = " Promedio: " + data[0].wind_speed;
+					v_chart.options.data[1].legendText = " Rafaga: " + data[0].wind_gust;
+					v_chart.options.data[2].legendText = " Direccion: " + getDireccion(data[0].wind_direction*1)
 					th_chart.render();
 					v_chart.render();
 
@@ -205,11 +208,17 @@
                                         wind_gust.push({
                                                 x: d,
                                                 y: data.rafaga*1
-                                         });
-                                         wind_direction.push({
+                                        });
+                                        wind_direction.push({
                                                 x: d,
-                                                y: data.direccion*22.5
-                                         });
+                                                y: (data.direccion*1 - 1)*22.5
+                                        });
+				
+					temperature.shift();
+					humidity.shift();
+					wind_speed.shift();
+					wind_gust.shift();
+					wind_direction.shift();					
 
 					th_chart.options.data[0].legendText = " Temperatura: " + data.temperatura;
 					th_chart.options.data[1].legendText = " Humedad: " + data.humedad;
