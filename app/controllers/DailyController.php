@@ -14,7 +14,13 @@ class DailyController extends ArchiveController {
 	public function daily($year, $month, $day)
 	{
 		$dayData = Day::where('date', '=', "{$year}-{$month}-{$day}")->get()->first();
-		$this->layout->content = $this->setUpDatePicker(View::make('archive.daily.main')->with('day', $dayData)->with('daily_section', true), "{$year}-{$month}-{$day}");
+		
+		$view = View::make('archive.daily.main');
+		$view->with('day', $dayData);
+		$view->with('daily_section', true);
+		$view->with('records', $dayData->archives()->paginate(10));
+
+		$this->layout->content = $this->setUpDatePicker($view, "{$year}-{$month}-{$day}");
 		$this->layout->with('daily_section', true);
 	}
 

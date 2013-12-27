@@ -8,3 +8,29 @@
 	<tr><td>Direcci&oacute;n dominante</td><td><?php echo $day->windDirection->code ?></td></tr>
 	<tr><td>Precipitaci&oacute;n</td><td><?php echo $day->sum_rain ?> mm</td></tr>
 </table>
+<h2>Datos detallados</h2>
+<table class="table table-condensed">
+	<thead>
+	<tr>
+		<th>Hora</th>
+		<th>Temperatura [°C]</th>
+		<th>Humedad [%]</th>
+		<th>Viento [km/h]</th>
+		<th>Precipitaci&oacute;n [mm]</th>
+	</tr>
+	</thead>
+<?php foreach($records as $record) { ?>
+	<tr>
+		<td><?php echo $record->time; ?></td>
+		<td><?php echo $record->temperature; ?></td>
+		<td><?php echo $record->humidity; ?></td>
+		<td><?php echo $record->wind_speed; ?> (<?php echo $record->wind_gust; ?>)</td>
+		<td><?php echo $record->rain; ?></td>
+	</tr> 
+<?php } ?>
+</table>
+<div class="row">
+<div class="col-xs-10 col-xs-offset-1" style="text-align: center;">
+<?php echo $records->links() ?>
+</div>
+</div>
