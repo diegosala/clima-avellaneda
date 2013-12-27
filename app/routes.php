@@ -25,3 +25,6 @@ Route::get('/archivo/{year}/{month}', 'MonthlyController@Monthly');
 
 Route::get('/archivo/anual', 'YearlyController@Main');
 Route::get('/archivo/{year}', 'YearlyController@Yearly');
+
+Route::get('/ultimos/graficos', 'LiveController@LiveData');
+Route::get('/ultimos/datos', 'LiveController@LastData');
