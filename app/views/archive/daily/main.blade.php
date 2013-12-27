@@ -29,10 +29,20 @@ $("#dp").datepicker({
     endDate: '{{ $max_date }}',
     language: "es",
     todayHighlight: true,
+    autoClose: true,
+    beforeShowDay: function(d) {
+	@if ((isset($day)) && (@$day->id > 0))
+	return d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() != '{{ $current_date }}';
+	@else
+	return true;
+	@endif
+    }
 }).on('changeDate', function(e){
-     location.href = '/archivo/' + e.format();
+    location.href = '/archivo/' + e.format();
 });
-$("#dp").datepicker('update','{{ $current_date }})');
+@if ((isset($day)) && (@$day->id > 0))
+$("#dp").datepicker('update','{{ $current_date }}');
+@endif
 </script>
 @endif
 @stop

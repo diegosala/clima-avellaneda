@@ -31,10 +31,13 @@ $('#dp').datepicker({
     todayHighlight: true,
     startView: 1,
     minViewMode: 1,
+    beforeShowDay: function(d) {
+        return d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() != '{{ $current_date }}';
+    }
 }).on('changeDate', function(e){
      location.href = '/archivo/' + e.format();
 });
-$("#dp").datepicker('update','{{ $current_date }})');
+$("#dp").datepicker('update','{{ $current_date }}');
 </script>
 @endif
 @stop
