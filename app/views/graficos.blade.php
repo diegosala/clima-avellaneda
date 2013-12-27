@@ -196,19 +196,19 @@
 					});
 					humidity.push({
                                                 x: d,
-                                                y: data[i].humedad*1
+                                                y: data.humedad*1
                                         });
                                         wind_speed.push({
                                                 x: d,
-                                                y: data[i].velocidad*1
+                                                y: data.velocidad*1
                                         });
                                         wind_gust.push({
                                                 x: d,
-                                                y: data[i].rafaga*1
+                                                y: data.rafaga*1
                                          });
                                          wind_direction.push({
                                                 x: d,
-                                                y: data[i].direccion*22.5
+                                                y: data.direccion*22.5
                                          });
 
 					th_chart.options.data[0].legendText = " Temperatura: " + data.temperatura;
