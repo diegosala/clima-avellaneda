@@ -15,6 +15,7 @@ $bateria = trim(substr($s, 42, 6))*1;
 //$bateria = $bateria * 15 / 1100;
 
 $datos = array(
+		"timestamp" => $ts,
 		"hora" => date("d/m @ H:i:s", $ts), 
 	    "temperatura"=>trim(substr($s, 0, 6))*1,
 		"humedad"=>trim(substr($s, 6, 6))*1,
