@@ -1,10 +1,9 @@
 <?php
 
 class LiveController extends BaseController {
-	protected $layout = 'layouts.master';
-
-	public function showLive()
+	public function LastData()
 	{
-		$this->layout->content = View::make('live', array("actuales"=>"Fruta"));
+		$span = 3; //hours
+		return Response::json(DB::table('live')->select('timestamp', 'temperature', 'humidity', 'wind_speed', 'wind_gust', 'wind_direction', 'rain')->orderBy('id', 'desc')->take($span*60*12)->get());
 	}
 }
