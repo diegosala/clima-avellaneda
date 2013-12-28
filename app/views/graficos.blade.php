@@ -19,9 +19,12 @@
 		var wind_direction = [];
 		
 		var th_chart = new CanvasJS.Chart("th_chartContainer",{
-			zoomEnabled: true,
+			zoomEnabled: false,
+			backgroundColor: "#fafff8",
 			title: {
-				text: "Temperatura y humedad"		
+				text: "Temperatura y humedad",
+				fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+				fontColor: "#484a49"
 			},
 			toolTip: {
 				shared: true
@@ -29,20 +32,23 @@
 			legend: {
 				verticalAlign: "top",
 				horizontalAlign: "center",
-                                fontSize: 14,
+                fontSize: 14,
 				fontWeight: "bold",
-				fontFamily: "calibri",
-				fontColor: "dimGrey"
+				fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+				fontColor: "#484a49"
 			},
 			axisX: {
-				title: "actualizado cada 5 segundos"
+				title: "Últimos 30 minutos",
+                titleFontSize: 12
 			},
 			axisY:{
-				title: 'Temperatura'
+				title: 'Temperatura',
+				suffix: " ºC"
 			}, 
 			axisY2:{
 				title: 'Humedad',
-				maximum: 100
+				maximum: 100,
+				suffix: " %"
 			},
 			data: [{ 
 				// temperature
@@ -64,9 +70,12 @@
 		});
 
 		var v_chart = new CanvasJS.Chart("v_chartContainer",{
-                        zoomEnabled: true,
+                        zoomEnabled: false,
+			backgroundColor: "#fafff8",
                         title: {
-                                text: "Velocidad del viento"
+                                text: "Velocidad del viento",
+				fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+				fontColor: "#484a49"
                         },
                         toolTip: {
                                 shared: true
@@ -76,19 +85,23 @@
                                 horizontalAlign: "center",
                                 fontSize: 14,
                                 fontWeight: "bold",
-                                fontFamily: "calibri",
-                                fontColor: "dimGrey"
+                                fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                                fontColor: "#484a49"
                         },
                         axisX: {
-                                title: "actualizado cada 5 segundos"
+                                title: "Últimos 30 minutos",
+                                titleFontSize: 12
                         },
                         axisY:{
-				title: "Velocidad"
+				title: "Velocidad",
+				gridThickness: 0,
+				suffix: " km/h"
                         },
 			axisY2:{
-                                title: "Direccion",
+                                title: "Dirección",
 				maximum: 360,
-				interval: 22.5
+				interval: 22.5,
+				suffix: " º"
                         },
                         data: [{
                                 // wind speed
@@ -103,7 +116,7 @@
                                 type: "line",
                                 xValueType: "dateTime",
                                 showInLegend: true,
-                                name: "Rafaga" ,
+                                name: "Ráfaga" ,
                                 dataPoints: wind_gust
                         },
 			{
@@ -111,8 +124,8 @@
 				type: "scatter",
 				axisYType: "secondary",
 				xValueType: "dateTime",
-				showInLegend: false,
-				name: "Direccion",
+				showInLegend: true,
+				name: "Dirección",
 				dataPoints: wind_direction
 			}]
                 });
@@ -173,11 +186,11 @@
 						});
 					}
 					
-					th_chart.options.data[0].legendText = " Temperatura: " + data[0].temperature;
-					th_chart.options.data[1].legendText = " Humedad: " + data[0].humidity;
-					v_chart.options.data[0].legendText = " Promedio: " + data[0].wind_speed;
-					v_chart.options.data[1].legendText = " Rafaga: " + data[0].wind_gust;
-					v_chart.options.data[2].legendText = " Direccion: " + getDireccion(data[0].wind_direction*1)
+					th_chart.options.data[0].legendText = " Temperatura: " + data[0].temperature + " ºC";
+					th_chart.options.data[1].legendText = " Humedad: " + data[0].humidity + " %";
+					v_chart.options.data[0].legendText = " Promedio: " + data[0].wind_speed + " km/h";
+					v_chart.options.data[1].legendText = " Ráfaga: " + data[0].wind_gust + " km/h";
+					v_chart.options.data[2].legendText = " Dirección: " + getDireccion(data[0].wind_direction*1)
 					th_chart.render();
 					v_chart.render();
 
@@ -220,11 +233,11 @@
 					wind_gust.shift();
 					wind_direction.shift();					
 
-					th_chart.options.data[0].legendText = " Temperatura: " + data.temperatura;
-					th_chart.options.data[1].legendText = " Humedad: " + data.humedad;
-                                        v_chart.options.data[0].legendText = " Promedio: " + data.velocidad;
-                                        v_chart.options.data[1].legendText = " Rafaga: " + data.rafaga;
-					v_chart.options.data[2].legendText = " Direccion: " + getDireccion(data.direccion*1)
+					th_chart.options.data[0].legendText = " Temperatura: " + data.temperatura + " ºC";
+					th_chart.options.data[1].legendText = " Humedad: " + data.humedad + " %";
+                    v_chart.options.data[0].legendText = " Promedio: " + data.velocidad + " km/h";
+                    v_chart.options.data[1].legendText = " Ráfaga: " + data.rafaga + "km/h";
+					v_chart.options.data[2].legendText = " Dirección: " + getDireccion(data.direccion*1)
 					th_chart.render();
 					v_chart.render();
 					setTimeout(updateChart, 5000);

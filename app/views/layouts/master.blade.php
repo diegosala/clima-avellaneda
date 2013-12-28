@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF8">
 	<title>Clima Avellaneda</title>
 	<link rel="stylesheet" href="/min/g=css">
     </head>
