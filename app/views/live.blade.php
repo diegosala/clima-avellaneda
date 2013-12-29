@@ -48,7 +48,7 @@
                     </div>
             </div>
         </div>
-    </div>
+    </div>    
 @stop
 @section('content-js')
     <script type="text/javascript">
@@ -77,7 +77,7 @@
     
     function fetchStats() {                
             $.ajax({
-                url: '/arduino.txt?t=' + Math.random(),
+                url: '/datos.txt?t=' + Math.random(),
                 dataType: 'json',     
                 type: 'GET',
                 success: function(data) {

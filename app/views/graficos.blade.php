@@ -201,7 +201,7 @@
 
 		var updateChart = function () {
 			$.ajax({
-		                url: '/arduino.txt?t=' + Math.random(),
+		                url: '/datos.txt?t=' + Math.random(),
                 		dataType: 'json',     
 		                type: 'GET',
 		                success: function(data) {
