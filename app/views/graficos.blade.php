@@ -105,7 +105,7 @@
                         },
                         data: [{
                                 // wind speed
-                                type: "line",
+                                type: "spline",
                                 xValueType: "dateTime",
                                 showInLegend: true,
                                 name: "Promedio",
@@ -113,7 +113,7 @@
                         },
                         {
                                 // wind gust
-                                type: "line",
+                                type: "spline",
                                 xValueType: "dateTime",
                                 showInLegend: true,
                                 name: "Ráfaga" ,
@@ -156,14 +156,14 @@
 		
 		var start = function() {
 			$.ajax({
-                                url: '/ultimos/datos/{{ $span }}',
+                                url: '/ultimos/datos/{{ $span }}?t=' + Math.random(),
 				dataType: 'json',
 				type: 'GET',
 				success: function(data) {
 					var i;
 					var d;
 					for(i = data.length - 1; i > 0; i--) {
-						d = new Date(data[i].timestamp);
+						d = new Date(data[i].timestamp*1000);
 						temperature.push({
 							x: d,
 							y: data[i].temperature*1

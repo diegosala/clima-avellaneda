@@ -13,7 +13,7 @@ class LiveController extends BaseController {
 
 	public function LastData($span)
 	{	        		
-		return Response::json(DB::table('live')->select('timestamp', 'temperature', 'humidity', 'wind_speed', 'wind_gust', 'wind_direction', 'rain')->orderBy('id', 'desc')->take($span*12)->get());
+		return Response::json(DB::table('live')->select(DB::raw('unix_timestamp(timestamp) timestamp'), 'temperature', 'humidity', 'wind_speed', 'wind_gust', 'wind_direction', 'rain')->orderBy('id', 'desc')->take($span*12)->get());
 	}
 
 	public function LiveData($span = 5, $unit = 'minutes') {	
