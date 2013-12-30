@@ -15,9 +15,9 @@ Route::pattern("year", '[0-9]+');
 Route::pattern("month", '[0-9]+');
 Route::pattern("date", '[0-9]+');
 
-Route::get('/', 'LiveController@ShowLive');
+Route::get('/', array('after' => 'cache:1800', 'uses' => 'LiveController@ShowLive'));
 
-Route::get('/archivo/diario', 'DailyController@Main');
+Route::get('/archivo/diario', array('after' => 'cache:1800', 'uses' => 'DailyController@Main'));
 Route::get('/archivo/{year}/{month}/{date}', 'DailyController@Daily');
 
 Route::get('/archivo/mensual', 'MonthlyController@Main');
