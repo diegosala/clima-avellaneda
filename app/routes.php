@@ -29,11 +29,4 @@ Route::get('/archivo/{year}', 'YearlyController@Yearly');
 Route::get('/graficos/{span?}/{unit?}', 'LiveController@LiveData');
 Route::get('/ultimos/datos/{amount}', 'LiveController@LastData');
 
-Route::get('forecast', function() {
-    $f = Cache::get("forecast");
-    $out = array();
-    //foreach ($f->hourly->data as $d) {
-    //    $out[] = $d;// date("Y-m-d H:i:s", $d->time);
-    //}
-    return print_r($f, true);
-});
+Route::get('/forecast', 'ForecastController@Main');

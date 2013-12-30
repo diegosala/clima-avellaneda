@@ -60,10 +60,10 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td><img src="{{ $forecast[0]["icon"]}}" class="img-rounded" title="{{$forecast[0]["cover"]}}"/></td>
-                            <td><img src="{{ $forecast[1]["icon"]}}" class="img-rounded" title="{{$forecast[1]["cover"]}}"/></td>
-                            <td><img src="{{ $forecast[2]["icon"]}}" class="img-rounded" title="{{$forecast[2]["cover"]}}"/></td>
-                            <td><img src="{{ $forecast[3]["icon"]}}" class="img-rounded" title="{{$forecast[3]["cover"]}}"/></td>
+                            <td><img src="{{ $forecast[0]["icon"]}}" class="img-rounded"/></td>
+                            <td><img src="{{ $forecast[1]["icon"]}}" class="img-rounded"/></td>
+                            <td><img src="{{ $forecast[2]["icon"]}}" class="img-rounded"/></td>
+                            <td><img src="{{ $forecast[3]["icon"]}}" class="img-rounded"/></td>
                         </tr>                
                         <tr>
                             <td>@if (@isset($forecast[0]["max"]))<span style="color: #c7254e">{{ $forecast[0]["max"]}}&deg;C</span><br>@endif<span style="color: #34789a">{{ $forecast[0]["min"]}}&deg;C</span></td>
