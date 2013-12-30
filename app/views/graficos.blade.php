@@ -106,6 +106,7 @@
                         data: [{
                                 // wind speed
                                 type: "spline",
+				markerType: "none",
                                 xValueType: "dateTime",
                                 showInLegend: true,
                                 name: "Promedio",
@@ -114,6 +115,7 @@
                         {
                                 // wind gust
                                 type: "spline",
+				markerType: "none",
                                 xValueType: "dateTime",
                                 showInLegend: true,
                                 name: "Ráfaga" ,
