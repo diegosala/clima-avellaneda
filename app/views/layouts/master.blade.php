@@ -38,7 +38,7 @@
 			    </ul>
 		    </li>
                     <li <?php if (Request::is('graficos')) { ?>class="active"<?php } ?>><a href="/graficos">Gr&aacute;ficos</a></li>
-                    <li><a href="#">Contacto</a></li>
+                    <li <?php if (Request::is('contacto')) { ?>class="active"<?php } ?>><a href="<?php echo action("ContactController@Main") ?>">Contacto</a></li>
                 </ul>
             </div>
         </nav>            
