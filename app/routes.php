@@ -15,13 +15,9 @@ Route::pattern("year", '[0-9]+');
 Route::pattern("month", '[0-9]+');
 Route::pattern("date", '[0-9]+');
 
-Route::filter('cache', function($route, $request, $response, $age=60){
-    $response->setTtl($age);
-});
+Route::get('/', array('after' => 'cache:1800', 'uses' => 'LiveController@ShowLive'));
 
-Route::get('/', 'LiveController@ShowLive');
-
-Route::get('/archivo/diario', array('after' => 'cache:60', 'uses' => 'DailyController@Main'));
+Route::get('/archivo/diario', array('after' => 'cache:1800', 'uses' => 'DailyController@Main'));
 Route::get('/archivo/{year}/{month}/{date}', 'DailyController@Daily');
 
 Route::get('/archivo/mensual', 'MonthlyController@Main');
@@ -30,5 +26,7 @@ Route::get('/archivo/{year}/{month}', 'MonthlyController@Monthly');
 Route::get('/archivo/anual', 'YearlyController@Main');
 Route::get('/archivo/{year}', 'YearlyController@Yearly');
 
-Route::get('/graficos', 'LiveController@LiveData');
-Route::get('/ultimos/datos', 'LiveController@LastData');
+Route::get('/graficos/{span?}/{unit?}', 'LiveController@LiveData');
+Route::get('/ultimos/datos/{amount}', 'LiveController@LastData');
+
+Route::get('/forecast', 'ForecastController@Main');

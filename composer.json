@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
+	        "guhelski/forecast-php": "dev-master",
 		"barryvdh/laravel-httpcache": "*"
 	},
 	"autoload": {

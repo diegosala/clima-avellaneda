@@ -1,6 +1,6 @@
 <?php
 
-ini_set("show_errors", true);
+//ini_set("show_errors", true);
 
 date_default_timezone_set("America/Argentina/Buenos_Aires");
 
@@ -11,8 +11,6 @@ $s = $text["datos"];
 $ts = time();
 
 $bateria = trim(substr($s, 42, 6))*1;
-//$bateria = $bateria * 1023 / 15;
-//$bateria = $bateria * 15 / 1100;
 
 $datos = array(
 		"timestamp" => $ts,
@@ -33,6 +31,12 @@ if ($datos["humedad"] == 0) {
     exit();	
 }
 
+$historial_lluvia = unserialize(file_get_contents("lluvia.txt"));
+if (count($historial_lluvia) > 120)
+    array_shift($historial_lluvia);
+array_push($historial_lluvia, $datos["lluvia"]);
+file_put_contents("lluvia.txt", serialize($historial_lluvia));
+
 $tsdb = date("Y-m-d H:i:s");
 $db = new PDO('mysql:host=localhost;dbname=diego45_avellaclima', 'diego45_avella', 'avellaclima');
 
@@ -41,14 +45,6 @@ $insert = "insert into live (temperature, humidity, wind_speed, wind_gust, wind_
 $stmt = $db->prepare($insert);
 $stmt->execute();
 
-$last_id = $db->lastInsertId();
-$diff = $last_id - 12 * 10;
-$r = $db->query("SELECT sum(rain) lluvia FROM live WHERE id BETWEEN {$diff} AND {$last_id} AND humidity > 0");
-$lluvia = $r->fetch(PDO::FETCH_ASSOC);
-
-$datos["lluvia"] = $lluvia["lluvia"] * 0.3;
+$datos["lluvia"] = array_sum($historial_lluvia);
 	
-file_put_contents("arduino.txt", json_encode($datos, true));
-
-//echo $insert;
-?>
+file_put_contents("datos.txt", json_encode($datos, true));
