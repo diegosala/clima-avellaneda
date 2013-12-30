@@ -156,7 +156,7 @@
 		
 		var start = function() {
 			$.ajax({
-                                url: '/ultimos/datos',
+                                url: '/ultimos/datos/{{ $span }}',
 				dataType: 'json',
 				type: 'GET',
 				success: function(data) {

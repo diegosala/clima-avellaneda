@@ -46,7 +46,40 @@
                         <div class="progress-bar progress-bar-success" style="width: 0%; transition: none" id="pb">                            
                         </div>
                     </div>
+            </div>            
+            @if(isset($forecast))            
+            <div class="panel panel-primary">
+                <div class="panel-heading">Pron&oacute;stico</div>
+                    <table class="table table-bordered table-forecast" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">{{ $forecast[0]["date"]}}</th>
+                                <th style="width: 25%;">{{ $forecast[1]["date"]}}</th>
+                                <th style="width: 25%;">{{ $forecast[2]["date"]}}</th>
+                                <th style="width: 25%;">{{ $forecast[3]["date"]}}</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><img src="{{ $forecast[0]["icon"]}}" class="img-rounded" title="{{$forecast[0]["cover"]}}"/></td>
+                            <td><img src="{{ $forecast[1]["icon"]}}" class="img-rounded" title="{{$forecast[1]["cover"]}}"/></td>
+                            <td><img src="{{ $forecast[2]["icon"]}}" class="img-rounded" title="{{$forecast[2]["cover"]}}"/></td>
+                            <td><img src="{{ $forecast[3]["icon"]}}" class="img-rounded" title="{{$forecast[3]["cover"]}}"/></td>
+                        </tr>                
+                        <tr>
+                            <td>@if (@isset($forecast[0]["max"]))<span style="color: #c7254e">{{ $forecast[0]["max"]}}&deg;C</span><br>@endif<span style="color: #34789a">{{ $forecast[0]["min"]}}&deg;C</span></td>
+                            <td><span style="color: #c7254e">{{ $forecast[1]["max"]}}&deg;C</span><br><span style="color: #34789a">{{ $forecast[1]["min"]}}&deg;C</span></td>
+                            <td><span style="color: #c7254e">{{ $forecast[2]["max"]}}&deg;C</span><br><span style="color: #34789a">{{ $forecast[2]["min"]}}&deg;C</span></td>
+                            <td><span style="color: #c7254e">{{ $forecast[3]["max"]}}&deg;C</span><br><span style="color: #34789a">{{ $forecast[3]["min"]}}&deg;C</span></td>
+                        </tr>
+                        <tr>
+                            <td>{{$forecast[0]["windDir"]}} @ {{$forecast[0]["windSpeed"]}} km/h</td>
+                            <td>{{$forecast[1]["windDir"]}} @ {{$forecast[1]["windSpeed"]}} km/h</td>
+                            <td>{{$forecast[2]["windDir"]}} @ {{$forecast[2]["windSpeed"]}} km/h</td>
+                            <td>{{$forecast[3]["windDir"]}} @ {{$forecast[3]["windSpeed"]}} km/h</td>
+                        </tr>
+                    </table>
             </div>
+            @endif            
         </div>
     </div>    
 @stop
