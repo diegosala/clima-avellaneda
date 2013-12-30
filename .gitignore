@@ -5,6 +5,6 @@ composer.lock
 .DS_Store
 Thumbs.db
 error_log
-public/arduino.txt
+public/datos.txt
 public/log_lluvia.txt
 .ftpquota
