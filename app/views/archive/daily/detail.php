@@ -30,7 +30,7 @@
 <?php } ?>
 </table>
 <div class="row">
-<div class="col-xs-10 col-xs-offset-1" style="text-align: center;">
+<div class="col-xs-12" style="text-align: center;">
 <?php echo $records->links() ?>
 </div>
 </div>
