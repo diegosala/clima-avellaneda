@@ -3,6 +3,7 @@
     <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -17,6 +18,7 @@
     <div id="wrap">
         @section('navbar')
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
              <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6">
                 <span class="sr-only">Toggle navigation</span>
@@ -41,6 +43,7 @@
                     <li <?php if (Request::is('contacto')) { ?>class="active"<?php } ?>><a href="<?php echo action("ContactController@Main") ?>">Contacto</a></li>
                 </ul>
             </div>
+        </div>
         </nav>            
         @show
         <div class="container">
