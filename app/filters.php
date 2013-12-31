@@ -22,6 +22,12 @@ App::after(function($request, $response)
 	//
 });
 
+Route::filter('cache', function($route, $request, $response, $age=60){
+    $response->setMaxAge($age);
+    $response->setSharedMaxAge($age);
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters

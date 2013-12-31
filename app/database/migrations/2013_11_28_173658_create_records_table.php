@@ -76,7 +76,7 @@ class CreateRecordsTable extends Migration {
                         $table->decimal('humidity',3,1)->unsigned();
                         $table->integer('wind_gust')->unsigned();
                         $table->decimal('wind_speed',3,1);
-			$table->integer('wind_direction')->nullable();
+			$table->smallInteger('wind_direction')->nullable();
                         $table->decimal('rain',3,1);
                         $table->timestamps();
 

@@ -5,3 +5,7 @@ composer.lock
 .DS_Store
 Thumbs.db
 error_log
+public/datos.txt
+public/log_lluvia.txt
+public/lluvia.txt
+.ftpquota

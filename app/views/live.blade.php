@@ -6,10 +6,9 @@
 @stop
 @section('content')
     <div class="row">
-        <div class="col-lg-4 col-md-8 col-sm-12 col-lg-offset-4 col-md-offset-2">
-            <div class="panel panel-default">
+        <div class="col-lg-6 col-md-8 col-xs-12 col-lg-offset-3 col-md-offset-2">
+            <div class="panel panel-primary">
                 <div class="panel-heading">Datos actuales</div>
-                <div class="panel-body">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -26,35 +25,63 @@
                                 <td class="dato"><span id="humedad"></span>%</td>
                             </tr>
                             <tr>
-                                <td>Velocidad</td>
+                                <td>Velocidad de viento</td>
                                 <td class="dato"><span id="velocidad"></span> km/h</td>
                             </tr>
                             <tr>
-                                <td>Rága</td>
+                                <td>R&aacute;faga de viento</td>
                                 <td class="dato"><span id="rafaga"></span> km/h</td>
                             </tr>
                             <tr>
-                                <td>Direcciótd>
+                                <td>Direcci&oacute;n de viento</td>
                                 <td class="dato"><span id="direccion"></span></td>
                             </tr>
                             <tr>
-                                <td>Lluvia</td>
+                                <td>Precipitaci&oacute;n</td>
                                 <td class="dato"><span id="lluvia"></span> mm / 10 min</td>
-                            </tr>
-                            <tr>
-                                <td>Baterí/td>
-                                <td class="dato"><span id="bateria"></span> V</td>
-                            </tr>
+                            </tr>                           
                         </tbody>
                     </table>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-info" style="width: 0%; transition: none" id="pb">                            
+                    <div class="progress" style="width: 90%; margin-top: 20px; margin-right: auto; margin-left: auto">
+                        <div class="progress-bar progress-bar-success" style="width: 0%; transition: none" id="pb">                            
                         </div>
                     </div>
-                </div>
+            </div>            
+            @if(isset($forecast))            
+            <div class="panel panel-primary">
+                <div class="panel-heading">Pron&oacute;stico</div>
+                    <table class="table table-bordered table-forecast" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;">{{ $forecast[0]["date"]}}</th>
+                                <th style="width: 25%;">{{ $forecast[1]["date"]}}</th>
+                                <th style="width: 25%;">{{ $forecast[2]["date"]}}</th>
+                                <th style="width: 25%;">{{ $forecast[3]["date"]}}</th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td><img src="{{ $forecast[0]["icon"]}}" class="img-rounded"/></td>
+                            <td><img src="{{ $forecast[1]["icon"]}}" class="img-rounded"/></td>
+                            <td><img src="{{ $forecast[2]["icon"]}}" class="img-rounded"/></td>
+                            <td><img src="{{ $forecast[3]["icon"]}}" class="img-rounded"/></td>
+                        </tr>                
+                        <tr>
+                            <td>@if (@isset($forecast[0]["max"]))<span style="color: #c7254e">{{ $forecast[0]["max"]}}&deg;C</span><br>@endif<span style="color: #34789a">{{ $forecast[0]["min"]}}&deg;C</span></td>
+                            <td><span style="color: #c7254e">{{ $forecast[1]["max"]}}&deg;C</span><br><span style="color: #34789a">{{ $forecast[1]["min"]}}&deg;C</span></td>
+                            <td><span style="color: #c7254e">{{ $forecast[2]["max"]}}&deg;C</span><br><span style="color: #34789a">{{ $forecast[2]["min"]}}&deg;C</span></td>
+                            <td><span style="color: #c7254e">{{ $forecast[3]["max"]}}&deg;C</span><br><span style="color: #34789a">{{ $forecast[3]["min"]}}&deg;C</span></td>
+                        </tr>
+                        <tr>
+                            <td>{{$forecast[0]["windDir"]}} @ {{$forecast[0]["windSpeed"]}} km/h</td>
+                            <td>{{$forecast[1]["windDir"]}} @ {{$forecast[1]["windSpeed"]}} km/h</td>
+                            <td>{{$forecast[2]["windDir"]}} @ {{$forecast[2]["windSpeed"]}} km/h</td>
+                            <td>{{$forecast[3]["windDir"]}} @ {{$forecast[3]["windSpeed"]}} km/h</td>
+                        </tr>
+                    </table>
             </div>
+            @endif            
         </div>
-    </div>
+    </div>    
 @stop
 @section('content-js')
     <script type="text/javascript">
@@ -83,7 +110,7 @@
     
     function fetchStats() {                
             $.ajax({
-                url: '/arduino.txt?t=' + Math.random(),
+                url: '/datos.txt?t=' + Math.random(),
                 dataType: 'json',     
                 type: 'GET',
                 success: function(data) {
@@ -94,11 +121,10 @@
                     $("#rafaga").text(data.rafaga);
                     $("#direccion").text(getDireccion(data.direccion));
                     $("#lluvia").text(data.lluvia);
-                    $("#bateria").text(data.bateria);
                                         
                     $("#tabla_datos .dato").animate({textShadow: "#C0B6B6 5px 5px 5px;"});
                     
-                    $("#horario").css("color", "#31b0d5");
+                    $("#horario").css("color", "#6cb484");
                     $("#horario").animate({color: "#000000"});
                     
                     $("#pb").css("width", "0%");                    
