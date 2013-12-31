@@ -30,3 +30,6 @@ Route::get('/graficos/{span?}/{unit?}', 'LiveController@LiveData');
 Route::get('/ultimos/datos/{amount}', 'LiveController@LastData');
 
 Route::get('/forecast', 'ForecastController@Main');
+
+Route::get('/contacto', 'ContactController@Main');
+Route::post('/contacto', 'ContactController@Send');
