@@ -19,18 +19,24 @@ class ContactController extends BaseController {
 			array(
 				'name.required' => 'Ingrese su nombre',
 				'email.required' => 'Ingrese su direcci&oacute;n de correo electr&oacute;nico',
-				'email.email' => 'La direcci&oacute;n de correo electr&oacute;nico ingresada no es v&aacute;lida',
-				'comment' => 'Ingrese un comentario'
+				'email.email' => 'Ingrese una direcci&oacute;n de correo electr&oacute;nico v&aacute;lida',
+				'comment.required' => 'Ingrese un comentario'
 			)
 		);
 
 		if ($v->fails()) {
 			$this->layout->content = View::make('contact.form')->withErrors($v)->withInput($_POST);
 		} else {
-			 Mail::send('contact.mail', $_POST, function($message)
-                	{
-                        	$message->to('diego45@gmail.com', 'Diego Sala')->subject('Contacto')->setReplyTo($_POST["email"], $_POST["name"]);
-                	});
+			$view = View::make('contact.sent')->withSuccess(true);
+			try {
+				Mail::send('contact.mail', $_POST, function($message)
+	                	{
+	                        	$message->to('diego45@gmail.com', 'Diego Sala')->subject('Contacto')->setReplyTo($_POST["email"], $_POST["name"]);
+	                	});
+			} catch (Exception $e) {
+				$view->withSuccess(false);
+			}
+			$this->layout->content = $view;
 		}
 	}	
 }

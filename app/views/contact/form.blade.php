@@ -1,7 +1,9 @@
 @extends('layouts.master')
 @section('content')
 <h1>Contacto</h1>
-<div class="alert alert-danger">{{ $errors }}</div>
+@if (count($errors->all()) > 0)
+<div class="alert alert-danger"><strong>Por favor, corrija los siguientes errores:</strong><ul>@foreach ($errors->all() as $error)<li>{{ $error }}@endforeach</ul></div>
+@endif
 {{ Form::open(array('role'=>'form' ,'action' => 'ContactController@Send')) }}
 <div class="form-group">
 {{ Form::label('name', 'Nombre') }}
