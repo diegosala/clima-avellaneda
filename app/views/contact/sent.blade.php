@@ -6,3 +6,4 @@
 @else
 <div class="alert alert-danger"><strong>Ha ocurrido un error al enviar el mensaje</strong></div>
 @endif
+@stop
