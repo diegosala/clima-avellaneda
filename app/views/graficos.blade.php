@@ -38,7 +38,7 @@
 				fontColor: "#484a49"
 			},
 			axisX: {
-				title: "Últimos 30 minutos",
+				title: "Últimos {{ $span }} minutos",
                 titleFontSize: 12
 			},
 			axisY:{
@@ -89,7 +89,7 @@
                                 fontColor: "#484a49"
                         },
                         axisX: {
-                                title: "Últimos 30 minutos",
+                                title: "Últimos {{ $span }} minutos",
                                 titleFontSize: 12
                         },
                         axisY:{

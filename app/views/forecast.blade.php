@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
-<h1>Pron&oacute;stico</h1>
+<?php $f = new Forecast(array()); ?>
+<h1>Pron&oacute;stico <small>{{ date("d/m/Y H:i:s", $forecast->currently->time) }}</small></h1>
 <h3>Diario</h3>
 <table class="table">
 <thead>
@@ -13,8 +14,7 @@
 	<th>Icon</th>
 </tr>
 </thead>
-<?php $f = new Forecast(array());
-foreach($forecast->daily->data as $d) { ?>
+<?php foreach($forecast->daily->data as $d) { ?>
 	<tr>
 		<td>{{ date("Y-m-d H:i:s", $d->time) }}</td>
 		<td>{{ $d->icon }}</td>

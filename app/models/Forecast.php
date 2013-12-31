@@ -12,7 +12,7 @@ class Forecast {
             $finalForecast = array();
                 
             $offset = 0;
-            if (date("H") > 18) {
+            if (date("H") >= 18) {
                 $now = new DateTime();
                 $tomorrow = new DateTime();
                 $tomorrow->add(new DateInterval("P1D"));
