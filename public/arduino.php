@@ -45,6 +45,6 @@ $insert = "insert into live (temperature, humidity, wind_speed, wind_gust, wind_
 $stmt = $db->prepare($insert);
 $stmt->execute();
 
-$datos["lluvia"] = array_sum($historial_lluvia);
+$datos["lluvia"] = array_sum($historial_lluvia)*0.3;
 	
 file_put_contents("datos.txt", json_encode($datos, true));
