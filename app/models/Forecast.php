@@ -6,7 +6,7 @@ class Forecast {
 		$this->rf = $rf;
 	}
 
-	public function getForecast() 
+	public function getDailyForecast() 
 	{
             $rawForecast = $this->rf;
             $finalForecast = array();
@@ -49,6 +49,34 @@ class Forecast {
             }
 
 	return $finalForecast;
+	}
+
+	public function getHourlyForecast($dayNumber) {
+		$currentDay = 0;
+		$final_forecast = array();
+		$date = date("Ymd", $this->rf->hourly->data[0]->time);
+
+		foreach($this->rf->hourly->data as $hourlyData) {
+			if (date("Ymd", $hourlyData->time) != $date) {
+				$date = date("Ymd", $hourlyData->time);
+				$currentDay++;
+			}
+
+			if ($currentDay != $dayNumber)
+				continue;
+
+			$dayNumberDate = isset($dayNumberDate) ? $dayNumberDate : date("d/m/Y", $hourlyData->time);
+
+			$final_forecast[] = array(
+				"time" => date("H:i", $hourlyData->time),
+				"icon" => "/assets/images/forecast/{$this->getForecastIcon($hourlyData->icon, $hourlyData->cloudCover, $hourlyData->precipIntensity, $hourlyData->precipProbability)}.jpg",
+				"temperature" => $hourlyData->temperature,
+				"windDir" => $this->getWindDirection($hourlyData->windBearing),
+				"windSpeed" => round($hourlyData->windSpeed*(3600 / 1000))
+			);
+		}
+
+		return array("date" => $dayNumberDate, "detail" => $final_forecast);
 	}
 
 	public function getForecastIcon($icon, $cloudCover = "", $precipIntensity = "", $precipProbability = "", $night = false) {

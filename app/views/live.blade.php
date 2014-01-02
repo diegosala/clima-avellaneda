@@ -47,7 +47,7 @@
                         </div>
                     </div>
             </div>            
-            @if(isset($forecast))            
+            @if(@isset($forecast))            
             <div class="panel panel-primary">
                 <div class="panel-heading">Pron&oacute;stico</div>
                     <table class="table table-bordered table-forecast" style="text-align: center;">
@@ -60,9 +60,9 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td><img src="{{ $forecast[0]["icon"]}}" class="img-rounded"/></td>
-                            <td><img src="{{ $forecast[1]["icon"]}}" class="img-rounded"/></td>
-                            <td><img src="{{ $forecast[2]["icon"]}}" class="img-rounded"/></td>
+                            <td><a href="#" onclick="showForecast(0);"><img src="{{ $forecast[0]["icon"]}}" class="img-rounded"/></a></td>
+                            <td><a href="#" onclick="showForecast(1);"><img src="{{ $forecast[1]["icon"]}}" class="img-rounded"/></a></td>
+                            <td><a href="#" onclick="showForecast(2);"><img src="{{ $forecast[2]["icon"]}}" class="img-rounded"/></a></td>
                             <td><img src="{{ $forecast[3]["icon"]}}" class="img-rounded"/></td>
                         </tr>                
                         <tr>
@@ -82,10 +82,71 @@
             @endif            
         </div>
     </div>    
+
+<div class="modal fade" id="forecastModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Pron&oacute;stico detallado <span id="date"></span></h4>
+      </div>
+      <div class="modal-body">
+        <h4 id="forecastDate"></h4>
+	<table class="table" id="forecastTable">
+		<thead>
+			<tr>
+				<th>Horario</th>
+				<th>Temperatura</th>
+				<th>Viento</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 @stop
 @section('content-js')
     <script type="text/javascript">
-    
+	function showForecast(n_day) {
+		$.ajax({
+	                url: '/forecast/' + n_day,
+			dataType: 'json',
+	                type: 'GET',
+			success: function(data) {
+				$("#forecastModal .modal-dialog .modal-content .modal-header .modal-title #date").text(data.date);
+				var modalBody = $("#forecastModal .modal-dialog .modal-content .modal-body");
+				var forecastTable = $(modalBody).find("#forecastTable tbody")[0];
+				var n_rows = forecastTable.rows.length;
+				for (var i=0; i < n_rows; i++) {
+					forecastTable.deleteRow(0);
+				}
+
+				var fDetail = data.detail;
+				for (var i=0; i < fDetail.length; i++) {
+					var row = forecastTable.insertRow(i);
+					var timeCell = row.insertCell(0);
+					var temperatureCell = row.insertCell(1);
+					var windCell = row.insertCell(2);
+					var icon = row.insertCell(3);
+
+					timeCell.innerHTML = fDetail[i].time;
+					temperatureCell.innerHTML = fDetail[i].temperature + "&deg;C";
+					windCell.innerHTML = fDetail[i].windDir + " @ " + fDetail[i].windSpeed + " km/h";
+					icon.innerHTML = "<img src='" + fDetail[i].icon + "' />";
+				}
+
+				$('#forecastModal').modal();
+			}
+		});
+	}
+
      function getDireccion(id) {
         switch(id) {
             case 1: return "N"; break;
@@ -152,7 +213,7 @@
             });
     }
     
-    fetchStats();
+	$(document).ready(function() { fetchStats(); });
     </script>    
 
 @stop
