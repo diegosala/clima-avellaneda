@@ -76,7 +76,7 @@ class Forecast {
 			);
 		}
 
-		return array("date" => $dayNumberDate, "detail" => $final_forecast);
+		return array("date" => $dayNumberDate, "updated" => date("d/m @ H:i", $this->rf->currently->time),"detail" => $final_forecast);
 	}
 
 	public function getForecastIcon($icon, $cloudCover = "", $precipIntensity = "", $precipProbability = "", $night = false) {

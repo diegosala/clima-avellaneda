@@ -88,7 +88,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Pron&oacute;stico detallado <span id="date"></span></h4>
+        <h4 class="modal-title">Pron&oacute;stico detallado <span id="date"></span> <small>Actualizado <span id="updated"></span></small></h4>
       </div>
       <div class="modal-body">
         <h4 id="forecastDate"></h4>
@@ -121,6 +121,7 @@
 	                type: 'GET',
 			success: function(data) {
 				$("#forecastModal .modal-dialog .modal-content .modal-header .modal-title #date").text(data.date);
+				$("#forecastModal .modal-dialog .modal-content .modal-header .modal-title #updated").text(data.updated);
 				var modalBody = $("#forecastModal .modal-dialog .modal-content .modal-body");
 				var forecastTable = $(modalBody).find("#forecastTable tbody")[0];
 				var n_rows = forecastTable.rows.length;
