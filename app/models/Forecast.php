@@ -70,7 +70,7 @@ class Forecast {
 			$final_forecast[] = array(
 				"time" => date("H:i", $hourlyData->time),
 				"icon" => "/assets/images/forecast/{$this->getForecastIcon($hourlyData->icon, $hourlyData->cloudCover, $hourlyData->precipIntensity, $hourlyData->precipProbability)}.jpg",
-				"temperature" => $hourlyData->temperature,
+				"temperature" => round($hourlyData->temperature),
 				"windDir" => $this->getWindDirection($hourlyData->windBearing),
 				"windSpeed" => round($hourlyData->windSpeed*(3600 / 1000))
 			);
