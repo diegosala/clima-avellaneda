@@ -24,7 +24,9 @@ class DailyController extends ArchiveController {
 		$this->layout->with('daily_section', true);
 	}
 
-	protected function getDatePickerFormat() {
+	protected function getDatePickerFormat($php = false) {
+		if ($php)
+			return 'Y/m/d';
 		return 'yyyy/mm/dd';
 	}
 }

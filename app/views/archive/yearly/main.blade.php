@@ -31,12 +31,18 @@ $('#dp').datepicker({
     startView: 2,
     minViewMode: 2,
     beforeShowDay: function(d) {
-        return d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() != '{{ $current_date }}';
+        @if ((isset($year)) && (@$year->id > 0))
+	return d.getFullYear() != '{{ $avoid_date }}';
+	@else
+	return true;
+	@endif
     }
 }).on('changeDate', function(e){
      location.href = '/archivo/' + e.format();
 });
+@if ((isset($year)) && (@$year->id > 0))
 $("#dp").datepicker('update','{{ $current_date }}');
+@endif
 </script>
 @endif
 @stop
