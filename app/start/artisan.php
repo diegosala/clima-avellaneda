@@ -12,3 +12,4 @@
 */
 Artisan::add(new ArchiveCommand);
 Artisan::add(new GetForecastCommand);
+Artisan::add(new HistoricArchive);
