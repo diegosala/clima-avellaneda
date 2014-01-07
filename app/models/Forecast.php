@@ -41,8 +41,8 @@ class Forecast {
                     "date" => date("d/m", $dailyData->time),
                     "icon" => "/assets/images/forecast/{$this->getForecastIcon($dailyData->icon, $dailyData->cloudCover, $dailyData->precipIntensity, $dailyData->precipProbability)}.jpg",
                     "cover" => $dailyData->cloudCover,
-                    "max" => round($dailyData->temperatureMax),
-                    "min" => round($dailyData->temperatureMin),
+                    "max" => round(@isset($dailyData->temperatureMax) ? $dailyData->temperatureMax : null),
+                    "min" => round(@isset($dailyData->temperatureMin) ? $dailyData->temperatureMin : null),
                     "windDir" => $this->getWindDirection($dailyData->windBearing),
                     "windSpeed" => round($dailyData->windSpeed*(3600 / 1000))
                 );                
@@ -70,7 +70,7 @@ class Forecast {
 			$final_forecast[] = array(
 				"time" => date("H:i", $hourlyData->time),
 				"icon" => "/assets/images/forecast/{$this->getForecastIcon($hourlyData->icon, $hourlyData->cloudCover, $hourlyData->precipIntensity, $hourlyData->precipProbability)}.jpg",
-				"temperature" => round($hourlyData->temperature),
+				"temperature" => round(@isset($hourlyData->temperature) ? $hourlyData->temperature : null),
 				"windDir" => $this->getWindDirection($hourlyData->windBearing),
 				"windSpeed" => round($hourlyData->windSpeed*(3600 / 1000))
 			);
@@ -127,7 +127,7 @@ class Forecast {
         $directions = array("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO");
         
         for($i=0; $i<16; $i++) {
-            if ($bearing < $i*22.5)
+            if ($bearing <= ($i+1)*22.5)
                 return $directions[$i];
         }        
     }
