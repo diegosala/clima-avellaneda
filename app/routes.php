@@ -30,6 +30,7 @@ Route::get('/graficos/{span?}/{unit?}', array('after' => 'cache:1800', 'uses' =>
 Route::get('/ultimos/datos/{amount}', 'LiveController@LastData');
 
 Route::get('/forecast', 'ForecastController@Main');
+Route::get('/forecast/{day}', 'ForecastController@Day');
 
 Route::get('/contacto', 'ContactController@Main');
 Route::post('/contacto', 'ContactController@Send');

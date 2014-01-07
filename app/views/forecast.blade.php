@@ -10,6 +10,7 @@
 	<th>icon</th>
 	<th>precipIntensity</th>
 	<th>precipProbability</th>
+	<th>Max/Min</th>
 	<th>cloudCover</th>
 	<th>Icon</th>
 </tr>
@@ -20,6 +21,7 @@
 		<td>{{ $d->icon }}</td>
 		<td>{{ $d->precipIntensity }} </td>
 		<td>{{ $d->precipProbability }}</td>
+		<td>{{ $d->temperatureMax }} / {{ $d->temperatureMin }}</td>
 		<td>{{ $d->cloudCover }}</td>
 		<td><img src="/assets/images/forecast/<?php echo $f->getForecastIcon($d->icon, $d->cloudCover, $d->precipIntensity, $d->precipProbability) ?>.jpg"></td>
 	</tr>

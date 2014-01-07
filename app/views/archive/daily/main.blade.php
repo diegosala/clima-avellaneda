@@ -32,7 +32,7 @@ $("#dp").datepicker({
     autoClose: true,
     beforeShowDay: function(d) {
 	@if ((isset($day)) && (@$day->id > 0))
-	return d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() != '{{ $current_date }}';
+	return d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() != '{{ $avoid_date }}';
 	@else
 	return true;
 	@endif

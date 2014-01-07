@@ -3,24 +3,27 @@
 abstract class ArchiveController extends BaseController {
         protected $layout = 'layouts.archive';
 
-        abstract protected function getDatePickerFormat();
+        abstract protected function getDatePickerFormat($php = false);
 	protected function getMinDate() {
-		return Day::min('date');
+		$d = Day::min('date');		
+		return date($this->getDatePickerFormat(true), strtotime($d));
 	}
 
 	protected function getMaxDate() {
-		return Day::max('date');
+		$d = Day::max('date');
+                return date($this->getDatePickerFormat(true), strtotime($d));
 	}
 
-	protected function setUpDatePicker($view, $default_date = false) {
+	protected function setUpdatePicker($view, $default_date = false) {
                 $max_date = $this->getMaxDate();
 
                 if (!$default_date)
                         $default_date = $max_date;
-                $view->with('min_date', str_replace('-', '/', $this->getMinDate()));
-                $view->with('max_date', str_replace('-', '/', $max_date));
+                $view->with('min_date', $this->getMinDate());
+                $view->with('max_date', $max_date);
                 $view->with('datepicker_format', $this->getDatePickerFormat());
-                $view->with('current_date', str_replace('-', '/', $default_date));
+                $view->with('current_date', $default_date);
+		$view->with('avoid_date', date(str_replace(array('m', 'd'), array('n', 'j'), $this->getDatePickerFormat(true)), strtotime($default_date)));
 
                 return $view;
         }

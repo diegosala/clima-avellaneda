@@ -7,18 +7,20 @@ class YearlyController extends ArchiveController{
                 $view->with('year', 0);
                 $view->with('yearly_section', true);                	
 
-                $this->layout->content = $this->setUpDatePicker($view);
+                $this->layout->content = $this->setUpdatePicker($view);
                 $this->layout->with('yearly_section', true);
 	}
 
 	public function yearly($year)
 	{	
-		$year = Year::find($year);
-		$this->layout->content = $this->setUpDatePicker(View::make('archive.yearly.main')->with('year', $year)->with('yearly_section', true), "{$year}");
+		$yearData = Year::find($year);
+		$this->layout->content = $this->setUpdatePicker(View::make('archive.yearly.main')->with('year', $yearData)->with('yearly_section', true), "{$year}");
 		$this->layout->with('yearly_section', true);
 	}
 
-	protected function getDatePickerFormat() {
+	protected function getDatePickerFormat($php = false) {
+		if ($php)
+			return "Y";
                 return 'yyyy';
        }
 }

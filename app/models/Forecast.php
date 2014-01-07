@@ -6,7 +6,7 @@ class Forecast {
 		$this->rf = $rf;
 	}
 
-	public function getForecast() 
+	public function getDailyForecast() 
 	{
             $rawForecast = $this->rf;
             $finalForecast = array();
@@ -41,14 +41,42 @@ class Forecast {
                     "date" => date("d/m", $dailyData->time),
                     "icon" => "/assets/images/forecast/{$this->getForecastIcon($dailyData->icon, $dailyData->cloudCover, $dailyData->precipIntensity, $dailyData->precipProbability)}.jpg",
                     "cover" => $dailyData->cloudCover,
-                    "max" => round($dailyData->temperatureMax),
-                    "min" => round($dailyData->temperatureMin),
+                    "max" => round(@isset($dailyData->temperatureMax) ? $dailyData->temperatureMax : null),
+                    "min" => round(@isset($dailyData->temperatureMin) ? $dailyData->temperatureMin : null),
                     "windDir" => $this->getWindDirection($dailyData->windBearing),
                     "windSpeed" => round($dailyData->windSpeed*(3600 / 1000))
                 );                
             }
 
 	return $finalForecast;
+	}
+
+	public function getHourlyForecast($dayNumber) {
+		$currentDay = 0;
+		$final_forecast = array();
+		$date = date("Ymd", $this->rf->hourly->data[0]->time);
+
+		foreach($this->rf->hourly->data as $hourlyData) {
+			if (date("Ymd", $hourlyData->time) != $date) {
+				$date = date("Ymd", $hourlyData->time);
+				$currentDay++;
+			}
+
+			if ($currentDay != $dayNumber)
+				continue;
+
+			$dayNumberDate = isset($dayNumberDate) ? $dayNumberDate : date("d/m/Y", $hourlyData->time);
+
+			$final_forecast[] = array(
+				"time" => date("H:i", $hourlyData->time),
+				"icon" => "/assets/images/forecast/{$this->getForecastIcon($hourlyData->icon, $hourlyData->cloudCover, $hourlyData->precipIntensity, $hourlyData->precipProbability)}.jpg",
+				"temperature" => round(@isset($hourlyData->temperature) ? $hourlyData->temperature : null),
+				"windDir" => $this->getWindDirection($hourlyData->windBearing),
+				"windSpeed" => round($hourlyData->windSpeed*(3600 / 1000))
+			);
+		}
+
+		return array("date" => $dayNumberDate, "updated" => date("d/m @ H:i", $this->rf->currently->time),"detail" => $final_forecast);
 	}
 
 	public function getForecastIcon($icon, $cloudCover = "", $precipIntensity = "", $precipProbability = "", $night = false) {
@@ -99,7 +127,7 @@ class Forecast {
         $directions = array("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSO", "SO", "OSO", "O", "ONO", "NO", "NNO");
         
         for($i=0; $i<16; $i++) {
-            if ($bearing < $i*22.5)
+            if ($bearing <= ($i+1)*22.5)
                 return $directions[$i];
         }        
     }
