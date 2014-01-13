@@ -8,7 +8,7 @@ class LiveController extends BaseController {
 		$rawForecast = Cache::get("forecast");
 		$forecast = new Forecast($rawForecast);            
 		
-		$this->layout->content = View::make('live')->with("forecast", $forecast->getForecast());
+		$this->layout->content = View::make('live')->with("forecast", $forecast->getDailyForecast());
     }
 
 	public function LastData($span)
