@@ -39,7 +39,9 @@
 						title: {
 								text: 'Humedad'
 						},
-						opposite: true
+						opposite: true,
+						min: 0,
+						max: 100
 				}],
 				plotOptions: {
 						series: {
@@ -62,6 +64,7 @@
 
 		$('.wind.chart').highcharts({
 				chart: {
+						type: 'scatter',
 						backgroundColor: "#FAFFF8"
 				},
 				title: {
@@ -71,27 +74,39 @@
 						type: 'datetime',
 						title: {
 								text: null
-						}
+						},
 				},
-				yAxis: { // Primario
+				yAxis: [{ // Primario
 						title: {
 								text: 'Velocidad'
-						}
+						},
+						min: 0
 				},
-				plotOptions: {
-						series: {
-								marker: {
-										enabled: false
-								}
-						}
-				},
+				{
+					title: {
+						text: 'Direccion'
+					},
+					min: 0,
+					max: 359,
+					opposite: true
+				}],
 				series: [{
-						type: 'line',
+						marker: {
+							enabled: false
+						},
+						type: 'spline',
 						name: 'Promedio',
 						data: []
 				}, {
-						type: 'line',
+						marker: {
+							enabled: false
+						},
+						type: 'spline',
 						name: 'Rága',
+						data: []
+				}, {
+						yAxis: 1,
+						name: 'Direccion',
 						data: []
 				}]
 		});
@@ -148,7 +163,7 @@
 						]);
 						wind_direction.push([
                                                         d,
-                                                        (data[i].wind_direction*1 - 1)*22.5
+                                                        (data[i].wind_direction*1-1) * 22.5
 						]);
 					}
 
@@ -156,6 +171,7 @@
 					$('.temperature.chart').highcharts().series[1].setData(humidity);
 					$('.wind.chart').highcharts().series[0].setData(wind_speed);
 					$('.wind.chart').highcharts().series[1].setData(wind_gust);
+					$('.wind.chart').highcharts().series[2].setData(wind_direction);
 					
 					updateChart();
 				}
@@ -174,6 +190,7 @@
 					$('.temperature.chart').highcharts().series[1].addPoint([d, data.humedad*1], true, true, true);
 					$('.wind.chart').highcharts().series[0].addPoint([d, data.velocidad*1], true, true, true);
 					$('.wind.chart').highcharts().series[1].addPoint([d, data.rafaga*1], true, true, true);
+					$('.wind.chart').highcharts().series[2].addPoint([d, (data.direccion*1-1)*22.5], true, true, true);
 					
 					setTimeout(updateChart, 5000);
 				},
