@@ -38,7 +38,8 @@ class Forecast {
                     continue;
                 }
                 $finalForecast[] = array(
-                    "date" => date("d/m", $dailyData->time),
+                    //"date" => date("d/m", $dailyData->time),
+                    "date" => WeekDay::getSpanish(date("w", $dailyData->time)),			
                     "icon" => "/assets/images/forecast/{$this->getForecastIcon($dailyData->icon, $dailyData->cloudCover, $dailyData->precipIntensity, $dailyData->precipProbability)}.jpg",
                     "cover" => $dailyData->cloudCover,
                     "max" => round(@isset($dailyData->temperatureMax) ? $dailyData->temperatureMax : null),
