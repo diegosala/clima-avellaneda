@@ -2,8 +2,8 @@
 @section('content')
 <h1>Gr&aacute;ficos</h1>
 <div class="row">
-<div class="col-xs-12 temperature chart"></div>
-<div class="col-xs-12 wind chart"></div>
+<div class="col-xs-12" id="th_chartContainer" style="height: 300px; width: 100%;"></div>
+<div class="col-xs-12" id="v_chartContainer" style="height: 300px; width: 100%;"></div>
 </div>
 @stop
 @section('content-js')
@@ -17,85 +17,121 @@
 		var wind_speed = [];
 		var wind_gust = [];
 		var wind_direction = [];
-
-		$('.temperature.chart').highcharts({
-				chart: {
-						backgroundColor: "#FAFFF8"
-				},
-				title: {
-						text: 'Temperatura y Humedad'
-		},
-				xAxis: {
-						type: 'datetime',
-						title: {
-								text: null
-						}
-				},
-				yAxis: [{ // Primario
-						title: {
-								text: 'Temperatura'
-						}
-				},{ // Secundario
-						title: {
-								text: 'Humedad'
-						},
-						opposite: true
-				}],
-				plotOptions: {
-						series: {
-								marker: {
-										enabled: false
-								}
-						}
-				},
-				series: [{
-						type: 'line',
-						name: 'Temperatura',
-						data: []
-				}, {
-						yAxis: 1,
-						type: 'line',
-						name: 'Humedad',
-						data: []
-				}]
+		
+		var th_chart = new CanvasJS.Chart("th_chartContainer",{
+			zoomEnabled: false,
+			backgroundColor: "#fafff8",
+			title: {
+				text: "Temperatura y humedad",
+				fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+				fontColor: "#484a49"
+			},
+			toolTip: {
+				shared: true
+			},
+			legend: {
+				verticalAlign: "top",
+				horizontalAlign: "center",
+                fontSize: 14,
+				fontWeight: "bold",
+				fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+				fontColor: "#484a49"
+			},
+			axisX: {
+				title: "Últimos {{ $span }} minutos",
+                titleFontSize: 12
+			},
+			axisY:{
+				title: 'Temperatura',
+				suffix: " ºC"
+			}, 
+			axisY2:{
+				title: 'Humedad',
+				maximum: 100,
+				suffix: " %"
+			},
+			data: [{ 
+				// temperature
+				type: "line",
+				xValueType: "dateTime",
+				showInLegend: true,
+				name: "Temperatura",
+				dataPoints: temperature
+			},
+			{				
+				// humidity
+				type: "line",
+				axisYType: "secondary",
+				xValueType: "dateTime",
+				showInLegend: true,
+				name: "Humedad" ,
+				dataPoints: humidity
+			}]
 		});
 
-		$('.wind.chart').highcharts({
-				chart: {
-						backgroundColor: "#FAFFF8"
-				},
-				title: {
-						text: 'Velocidad del viento'
-		},
-				xAxis: {
-						type: 'datetime',
-						title: {
-								text: null
-						}
-				},
-				yAxis: { // Primario
-						title: {
-								text: 'Velocidad'
-						}
-				},
-				plotOptions: {
-						series: {
-								marker: {
-										enabled: false
-								}
-						}
-				},
-				series: [{
-						type: 'line',
-						name: 'Promedio',
-						data: []
-				}, {
-						type: 'line',
-						name: 'Rága',
-						data: []
-				}]
-		});
-	
+		var v_chart = new CanvasJS.Chart("v_chartContainer",{
+                        zoomEnabled: false,
+			backgroundColor: "#fafff8",
+                        title: {
+                                text: "Velocidad del viento",
+				fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+				fontColor: "#484a49"
+                        },
+                        toolTip: {
+                                shared: true
+                        },
+                        legend: {
+                                verticalAlign: "top",
+                                horizontalAlign: "center",
+                                fontSize: 14,
+                                fontWeight: "bold",
+                                fontFamily: "'Helvetica Neue',Helvetica,Arial,sans-serif",
+                                fontColor: "#484a49"
+                        },
+                        axisX: {
+                                title: "Últimos {{ $span }} minutos",
+                                titleFontSize: 12
+                        },
+                        axisY:{
+				title: "Velocidad",
+				gridThickness: 0,
+				suffix: " km/h"
+                        },
+			axisY2:{
+                                title: "Dirección",
+				maximum: 360,
+				interval: 22.5,
+				suffix: " º"
+                        },
+                        data: [{
+                                // wind speed
+                                type: "spline",
+				markerType: "none",
+                                xValueType: "dateTime",
+                                showInLegend: true,
+                                name: "Promedio",
+                                dataPoints: wind_speed
+                        },
+                        {
+                                // wind gust
+                                type: "spline",
+				markerType: "none",
+                                xValueType: "dateTime",
+                                showInLegend: true,
+                                name: "Ráfaga" ,
+                                dataPoints: wind_gust
+                        },
+			{
+				// wind direction
+				type: "scatter",
+				axisYType: "secondary",
+				xValueType: "dateTime",
+				showInLegend: true,
+				name: "Dirección",
+				dataPoints: wind_direction
+			}]
+                });
+
 		var getDireccion = function(dir) {						
 			switch(dir) {
 		            case 1: return "N"; break;
@@ -129,34 +165,37 @@
 					var i;
 					var d;
 					for(i = data.length - 1; i > 0; i--) {
-						d = data[i].timestamp*1000;
-						temperature.push([
-							d,
-							data[i].temperature*1
-						]);
-						humidity.push([
-                                                        d,
-                                                        data[i].humidity*1
-						]);
-						wind_speed.push([
-                                                        d,
-                                                        data[i].wind_speed*1
-						]);
-						wind_gust.push([
-                                                        d,
-                                                        data[i].wind_gust*1
-						]);
-						wind_direction.push([
-                                                        d,
-                                                        (data[i].wind_direction*1 - 1)*22.5
-						]);
+						d = new Date(data[i].timestamp*1000);
+						temperature.push({
+							x: d,
+							y: data[i].temperature*1
+						});
+						humidity.push({
+                                                        x: d,
+                                                        y: data[i].humidity*1
+						});
+						wind_speed.push({
+                                                        x: d,
+                                                        y: data[i].wind_speed*1
+						});
+						wind_gust.push({
+                                                        x: d,
+                                                        y: data[i].wind_gust*1
+						});
+						wind_direction.push({
+                                                        x: d,
+                                                        y: (data[i].wind_direction*1 - 1)*22.5
+						});
 					}
-
-					$('.temperature.chart').highcharts().series[0].setData(temperature);
-					$('.temperature.chart').highcharts().series[1].setData(humidity);
-					$('.wind.chart').highcharts().series[0].setData(wind_speed);
-					$('.wind.chart').highcharts().series[1].setData(wind_gust);
 					
+					th_chart.options.data[0].legendText = " Temperatura: " + data[0].temperature + " ºC";
+					th_chart.options.data[1].legendText = " Humedad: " + data[0].humidity + " %";
+					v_chart.options.data[0].legendText = " Promedio: " + data[0].wind_speed + " km/h";
+					v_chart.options.data[1].legendText = " Ráfaga: " + data[0].wind_gust + " km/h";
+					v_chart.options.data[2].legendText = " Dirección: " + getDireccion(data[0].wind_direction*1)
+					th_chart.render();
+					v_chart.render();
+
 					updateChart();
 				}
 			});
@@ -169,12 +208,40 @@
 		                type: 'GET',
 		                success: function(data) {
 					var d = data.timestamp * 1000;
-					
-					$('.temperature.chart').highcharts().series[0].addPoint([d, data.temperatura*1], true, true, true);
-					$('.temperature.chart').highcharts().series[1].addPoint([d, data.humedad*1], true, true, true);
-					$('.wind.chart').highcharts().series[0].addPoint([d, data.velocidad*1], true, true, true);
-					$('.wind.chart').highcharts().series[1].addPoint([d, data.rafaga*1], true, true, true);
-					
+					temperature.push({
+						x: d,
+						y: data.temperatura*1
+					});
+					humidity.push({
+                                                x: d,
+                                                y: data.humedad*1
+                                        });
+                                        wind_speed.push({
+                                                x: d,
+                                                y: data.velocidad*1
+                                        });
+                                        wind_gust.push({
+                                                x: d,
+                                                y: data.rafaga*1
+                                        });
+                                        wind_direction.push({
+                                                x: d,
+                                                y: (data.direccion*1 - 1)*22.5
+                                        });
+				
+					temperature.shift();
+					humidity.shift();
+					wind_speed.shift();
+					wind_gust.shift();
+					wind_direction.shift();					
+
+					th_chart.options.data[0].legendText = " Temperatura: " + data.temperatura + " ºC";
+					th_chart.options.data[1].legendText = " Humedad: " + data.humedad + " %";
+                    v_chart.options.data[0].legendText = " Promedio: " + data.velocidad + " km/h";
+                    v_chart.options.data[1].legendText = " Ráfaga: " + data.rafaga + "km/h";
+					v_chart.options.data[2].legendText = " Dirección: " + getDireccion(data.direccion*1)
+					th_chart.render();
+					v_chart.render();
 					setTimeout(updateChart, 5000);
 				},
 				error: function(a,b,c) {
