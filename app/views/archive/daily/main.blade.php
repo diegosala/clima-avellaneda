@@ -44,5 +44,8 @@ $("#dp").datepicker({
 $("#dp").datepicker('update','{{ $current_date }}');
 @endif
 </script>
+@if ((isset($day)) && (@$day->id > 0))
+@include('archive.daily.chart')
+@endif
 @endif
 @stop

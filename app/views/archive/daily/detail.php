@@ -1,5 +1,11 @@
+<ul class="nav nav-tabs">
+<li class="active"><a href="#data" data-toggle="tab">Datos</a></li>
+<li><a href="#charts" data-toggle="tab">Graficos</a></li>
+</ul>
+<div class="tab-content">
+<div class="tab-pane active" id="data">
 <table class="table">
-	<tr><td>Temperatura m&aacute;xima</td><td><?php echo $day->max_temperature ?>°C @ <?php echo  $day->max_temperaure_time ?> </td></tr>
+	<tr><td style="border-top:none">Temperatura m&aacute;xima</td><td style="border-top:none"><?php echo $day->max_temperature ?>°C @ <?php echo  $day->max_temperaure_time ?> </td></tr>
 	<tr><td>Temperatura m&iacute;nima</td><td><?php echo $day->min_temperature ?>°C  @ <?php echo $day->min_temperaure_time ?> </td></tr>
 	<tr><td>Temperatura promedio</td><td><?php echo $day->avg_temperature ?>°C</td></tr>
 	<tr><td>Humedad promedio</td><td><?php echo $day->avg_humidity ?>%</td></tr>
@@ -30,7 +36,14 @@
 <?php } ?>
 </table>
 <div class="row">
-<div class="col-xs-12" style="text-align: center;">
-<?php echo $records->links() ?>
+		<div class="col-xs-12" style="text-align: center;">
+		<?php echo $records->links() ?>
+	</div>
 </div>
 </div>
+<div class="tab-pane active" id="charts">
+	<div class="temperature chart"></div>
+	<div class="wind chart"></div>
+</div>
+</div>
+
