@@ -32,6 +32,8 @@ if ($datos["humedad"] == 0) {
 }
 
 $historial_lluvia = unserialize(file_get_contents("lluvia.txt"));
+if (!is_array($historial_lluvia))
+    $historial_lluvia = array();
 if (count($historial_lluvia) > 120)
     array_shift($historial_lluvia);
 array_push($historial_lluvia, $datos["lluvia"]);
