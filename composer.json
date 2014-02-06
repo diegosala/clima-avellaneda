@@ -6,7 +6,7 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 	    "guhelski/forecast-php": "dev-master",
-        "rmccue/requests": "1.6.*"
+        "rmccue/requests": "1.6.*",
 		"barryvdh/laravel-httpcache": "*"
 	},
 	"autoload": {
