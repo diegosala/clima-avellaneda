@@ -195,7 +195,7 @@
                     $("#pb").animate(
                         {width: "100%"}, 
                         {
-                            duration: 5000,
+                            duration: 6000,
                             easing: "easeInCirc",
                             complete: function() {                                                                
                                 fetchStats();

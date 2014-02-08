@@ -21,7 +21,9 @@ $datos = array(
 		"rafaga"=>trim(substr($s, 18, 6))*1,
 		"direccion"=>trim(substr($s, 24, 6))*1,
         "lluvia"=>trim(substr($s, 36, 6))*1,
-        "bateria"=>round($bateria,3)
+        "bateria"=>round($bateria,3),
+        "reintento"=>trim(substr($s, 48, 6))*1,
+        "uptime"=>trim(substr($s, 54, 6))*1,
 	);
     
 if ($datos["humedad"] == 0) {
@@ -40,7 +42,7 @@ file_put_contents("lluvia.txt", serialize($historial_lluvia));
 $tsdb = date("Y-m-d H:i:s");
 $db = new PDO('mysql:host=localhost;dbname=diego45_avellaclima', 'diego45_avella', 'avellaclima');
 
-$insert = "insert into live (temperature, humidity, wind_speed, wind_gust, wind_direction, rain, battery, timestamp, date_period)VALUES ({$datos["temperatura"]}, {$datos["humedad"]}, {$datos["velocidad"]}, {$datos["rafaga"]}, {$datos["direccion"]}, {$datos["lluvia"]}, {$datos["bateria"]}, '{$tsdb}', date_period('{$tsdb}'))";
+$insert = "insert into live (temperature, humidity, wind_speed, wind_gust, wind_direction, rain, battery, retry, uptime, timestamp, date_period)VALUES ({$datos["temperatura"]}, {$datos["humedad"]}, {$datos["velocidad"]}, {$datos["rafaga"]}, {$datos["direccion"]}, {$datos["lluvia"]}, {$datos["bateria"]}, {$datos["reintento"]}, {$datos["uptime"]}, '{$tsdb}', date_period('{$tsdb}'))";
 
 $stmt = $db->prepare($insert);
 $stmt->execute();

@@ -42,9 +42,9 @@ class HistoricArchive extends Command {
 		DB::statement("INSERT INTO historic (timestamp, temperature, humidity, wind_speed, wind_gust, wind_direction, rain) ".
 				"SELECT timestamp, temperature, humidity, wind_speed, wind_gust, wind_direction, rain ".
 				"FROM live ".
-				"WHERE timestamp < DATE_SUB(NOW(),INTERVAL 1 MONTH)");
+				"WHERE timestamp < DATE_SUB(NOW(),INTERVAL 10 DAY)");
 		
-		$deleted = DB::delete("DELETE FROM live WHERE timestamp < DATE_SUB(NOW(),INTERVAL 1 MONTH)");
+		$deleted = DB::delete("DELETE FROM live WHERE timestamp < DATE_SUB(NOW(),INTERVAL 10 DAY)");
 		DB::commit();
 		
 		$this->info("{$deleted} filas eliminadas");
