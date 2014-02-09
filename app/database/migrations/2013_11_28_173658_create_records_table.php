@@ -12,6 +12,8 @@ class CreateRecordsTable extends Migration {
 	public function up()
 	{
 		Schema::create('years', function($table) {
+			$table->engine = 'InnoDB';
+
 			$table->integer('id')->unsigned();
 			$table->decimal('max_temperature',5,2);
 			$table->dateTime('max_temperaure_date');
@@ -29,6 +31,8 @@ class CreateRecordsTable extends Migration {
 		});
 
 		Schema::create('months', function($table) {
+			$table->engine = 'InnoDB';
+
                         $table->bigIncrements('id')->unsigned();
 			$table->smallInteger('month')->unsigned();
 			$table->integer('year_id')->unsigned();
@@ -49,6 +53,8 @@ class CreateRecordsTable extends Migration {
                 });
 		
 		Schema::create('days', function($table) { 
+			$table->engine = 'InnoDB';
+
 			$table->bigIncrements('id')->unsigned();
 			$table->date('date');
                         $table->bigInteger('month_id')->unsigned();                     
@@ -69,6 +75,8 @@ class CreateRecordsTable extends Migration {
                 });
 
                 Schema::create('archive', function($table) {
+			$table->engine = 'InnoDB';
+
                         $table->bigIncrements('id')->unsigned();
                         $table->bigInteger('day_id')->unsigned();
 			$table->time('time');
