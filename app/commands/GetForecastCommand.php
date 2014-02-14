@@ -38,7 +38,7 @@ class GetForecastCommand extends Command {
 	public function fire()
 	{
 		$forecast = new \Forecast\Forecast('61e6fa548203733bf835da93404dbee0');        
- 	       	Cache::put('forecast', $forecast->get('-34.66571','-58.364726', null, array('units' => 'si')), 3*60);
+ 	       	Cache::forever('forecast', $forecast->get('-34.66571','-58.364726', null, array('units' => 'si')));
 		$this->info("Pronostico cargado");
 
 		$this->call("httpcache:clear");
