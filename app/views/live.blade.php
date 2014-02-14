@@ -120,12 +120,13 @@
 @stop
 @section('content-js')
     <script type="text/javascript">
+    var UPDATE_PERIOD = 6000; // milliseconds
     var updates;
     var bigUpdates = 0;
     
     function resetUpdates() {
         bigUpdates++;        
-        updates = 100;
+        updates = 15 * (UPDATE_PERIOD / 1000); // 15 minutes
         $("#alert-wrapper").hide("blind");
         
         if (bigUpdates > 2)
@@ -220,7 +221,7 @@
                     $("#pb").animate(
                         {width: "100%"}, 
                         {
-                            duration: 5000,
+                            duration: UPDATE_PERIOD,
                             easing: "easeInCirc",
                             complete: function() {                                                                
                                 fetchStats();
@@ -234,7 +235,7 @@
                     console.log(JSON.stringify(a));
                     console.log(b);
                     console.log(c);        
-                    setTimeout(fetchStats, 5000); 
+                    setTimeout(fetchStats, UPDATE_PERIOD); 
                 }
             });
     }
