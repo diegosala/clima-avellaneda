@@ -126,7 +126,7 @@
     
     function resetUpdates() {
         bigUpdates++;        
-        updates = 15 * (UPDATE_PERIOD / 1000); // 15 minutes
+        updates = 15 * (60 / (UPDATE_PERIOD / 1000)); // 15 minutes
         $("#alert-wrapper").hide("blind");
         
         if (bigUpdates > 2)
