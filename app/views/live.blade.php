@@ -10,7 +10,7 @@
         <div id="alert-wrapper" style="display: none">
         <div class="alert alert-info">
             <p style="text-align: center;"><strong>¿Seguís ahí?</strong> Las actualizaciones quedan pausadas hasta que respondas</p>
-            <p style="text-align: center;"><button type="button" onclick="resetUpdates();" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Sigo acá</button></p>
+            <p style="text-align: center;"><button type="button" onclick="resetUpdates(); fetchStats();" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Sigo acá</button></p>
         </div>
         </div>
             <div class="panel panel-primary">
@@ -121,11 +121,15 @@
 @section('content-js')
     <script type="text/javascript">
     var updates;
+    var bigUpdates = 0;
     
     function resetUpdates() {
+        bigUpdates++;        
         updates = 100;
         $("#alert-wrapper").hide("blind");
-        fetchStats();
+        
+        if (bigUpdates > 2)
+            location.reload();
     }    
     
 	function showForecast(n_day) {
