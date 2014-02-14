@@ -7,6 +7,12 @@
 @section('content')
     <div class="row">
         <div class="col-lg-6 col-md-8 col-xs-12 col-lg-offset-3 col-md-offset-2">
+        <div id="alert-wrapper" style="display: none">
+        <div class="alert alert-info">
+            <p style="text-align: center;"><strong>¿Seguís ahí?</strong> Las actualizaciones quedan pausadas hasta que respondas</p>
+            <p style="text-align: center;"><button type="button" onclick="resetUpdates();" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Sigo acá</button></p>
+        </div>
+        </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">Datos actuales</div>
                     <table class="table table-bordered">
@@ -114,6 +120,14 @@
 @stop
 @section('content-js')
     <script type="text/javascript">
+    var updates;
+    
+    function resetUpdates() {
+        updates = 100;
+        $("#alert-wrapper").hide("blind");
+        fetchStats();
+    }    
+    
 	function showForecast(n_day) {
 		$.ajax({
 	                url: '/forecast/' + n_day,
@@ -170,7 +184,14 @@
         }
     }
     
-    function fetchStats() {                
+    function fetchStats() {     
+            updates--;
+            
+            if (updates <= 0) {
+                $("#alert-wrapper").show("blind");
+                return;
+            }                
+               
             $.ajax({
                 url: '/datos.txt?t=' + Math.random(),
                 dataType: 'json',     
@@ -214,7 +235,7 @@
             });
     }
     
-	$(document).ready(function() { fetchStats(); });
+	$(document).ready(function() { resetUpdates(); fetchStats(); });
     </script>    
 
 @stop
