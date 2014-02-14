@@ -11,9 +11,12 @@ class DailyController extends ArchiveController {
 		$this->layout->with('daily_section', true);
 	}
 
-	public function daily($year, $month, $day)
+	public function daily($year, $month, $day, $raw = false)
 	{
 		$dayData = Day::where('date', '=', "{$year}-{$month}-{$day}")->get()->first();
+
+		if ($raw)
+			return Response::json($dayData->archives);
 		
 		$view = View::make('archive.daily.main');
 		$view->with('day', $dayData);

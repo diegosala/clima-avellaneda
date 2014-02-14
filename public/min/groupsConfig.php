@@ -12,6 +12,6 @@
  **/
 
 return array(
-	'js' => array('//assets/js/jquery-1.10.2.min.js', '//assets/js/jquery-ui-1.10.3.custom.min.js', '//assets/js/bootstrap.min.js', '//assets/js/bootstrap-datepicker.js', '//assets/js/jquery.fancybox.js'),
-	'css' => array('//assets/css/bootstrap-theme.min.css', '//assets/css/bootstrap.min.css', '//assets/css/datepicker.css', '//assets/css/styles.css', '//assets/css/jquery.fancybox.css' ),
+	'js' => array('//assets/js/jquery-1.10.2.min.js', '//assets/js/jquery-ui-1.10.3.custom.min.js', '//assets/js/bootstrap.min.js', '//assets/js/bootstrap-datepicker.js', '//assets/js/jquery.fancybox.js', '//assets/js/highcharts.js'),
+	'css' => array('//assets/css/bootstrap.min.css', '//assets/css/datepicker.css', '//assets/css/styles.css', '//assets/css/jquery.fancybox.css' ),
 );
