@@ -12,6 +12,8 @@ class WindDirectionsTable extends Migration {
 	public function up()
 	{
 		Schema::create('wind_directions', function($table) {
+			$table->engine = 'InnoDB';			
+
 			$table->smallInteger('id')->unsigned();
 			$table->string('code', 3);
 			$table->primary('id');

@@ -12,6 +12,8 @@ class CreateLiveTable extends Migration {
 	public function up()
 	{
 		Schema::create('live', function($table) {
+			$table->engine = 'InnoDB';
+
 			$table->bigIncrements('id')->unsigned();
 			$table->dateTime('timestamp');
 			$table->decimal('temperature',4,2);
